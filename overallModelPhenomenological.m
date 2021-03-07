@@ -39,10 +39,7 @@ latchDescription = {'linear_motor' [100,0.05,0.1,latchStartConditions(1)] false}
     
 overShoot = 10;
     %Describes percentage of time to overshoot take off time by.
-    
-    
-
-
+        
 bar = jet;
 
 
@@ -71,10 +68,7 @@ F0 = 40;
 loading = 'phenomenological';
 
 FsprMinMax = 100;
-
-%mu_s = [linspace(0,0.12406,100), linspace(0.12407,0.150217,3), linspace(0.150218,0.197064,100), linspace(0.24453,1,70)];
 mu_s = [linspace(0,0.3,50), linspace(0.301,1,25)];
-%mu_s = logspace(log10(minmu_s),log10(maxmu_s),numPoints1);
 mu_k = mu_s./muRatio;
 mu_ss = [mu_ss; mu_s];
 
@@ -140,34 +134,7 @@ for i = 1:numPoints1
     
 end
 
-% ogmu_ss = mu_ss;
-% kinetics = [mu1 mu2 mu3];
-% ogtMat = tMat;
-% ogvMat = vMat;
-% ogsMat = sMat;
-% ogvTOMat = sMat;
-% %vTOMat = smooth(vTOMat);
-% ogWfMat = WfMat;
-% oga0Mat = a0Mat; 
-% ogFsprings= Fsprings;
-% %Ff0s(i,m) = FfrMin;
-% ogaMaxMat = aMaxMat;
-% ogkineticsa = kineticsa;
 %%
-% mu_ss = ogmu_ss;
-% kinetics = [mu1 mu2 mu3];
-% tMat = ogtMat;
-% vMat = ogvMat;
-% sMat = ogsMat;
-% vTOMat = ogsMat;
-% %vTOMat = smooth(vTOMat);
-% WfMat = ogWfMat;
-% a0Mat = oga0Mat; 
-% Fsprings= ogFsprings;
-% %Ff0s(i,m) = FfrMin;
-% aMaxMat = ogaMaxMat;
-% kineticsa = ogkineticsa;
-
 
 
 set(0,'defaulttextinterpreter','latex')
@@ -193,7 +160,6 @@ plot(real(kineticsa(idx1).t),real(kineticsa(idx1).y),'DisplayName',['\mu=' num2s
 plot(real(kineticsa(idx2).t),real(kineticsa(idx2).y),'DisplayName',['\mu=' num2str(kineticsa(idx2).mu)])
 plot(real(kineticsa(idx3).t),real(kineticsa(idx3).y),'DisplayName',['\mu=' num2str(kineticsa(idx3).mu)])
 xlim([min(real(kineticsa(idx1).t)) 1.8*max([kineticsa(idx1).tTO kineticsa(idx2).tTO kineticsa(idx3).tTO])])
-%ylim([0, max([real(kineticsa(idx1).y(end)) real(kineticsa(idx2).y(end)) real(kineticsa(idx3).y(end))])])
 set(gca, 'XTickLabel', [])
 legend
 ylabel('$y_{m} (m)$','FontSize', fSize)
@@ -285,28 +251,11 @@ tMat(mask) = [];
 vMat(mask) = [];
 sMat(mask) = [];
 vTOMat(mask) = [];
-%vTOMat = smooth(vTOMat);
 WfMat(mask) = [];
 a0Mat(mask) = []; 
 Fsprings(mask) = [];
-%Ff0s(i,m) = FfrMin;
 aMaxMat(mask) = [];
 kineticsa(mask) = [];
-
-% toremove = [51:55];
-% mu_ss(toremove) = [];
-% tMat(toremove) = [];
-% vMat(toremove) = [];
-% sMat(toremove) = [];
-% vTOMat(toremove) = [];
-% %vTOMat = smooth(vTOMat);
-% WfMat(toremove) = [];
-% a0Mat(toremove) = []; 
-% Fsprings(toremove) = [];
-% %Ff0s(i,m) = FfrMin;
-% aMaxMat(toremove) = [];
-% kineticsa(toremove) = [];
-
 
 trendFig = figure('Name','Friction trends','WindowState', 'maximized');
 title('Linear Motor (90, 0.05, 0.1, false), Spring(k=1000,a=220,F0=40), latch(m=1,R=0.1),friction(-0.75,1), load(m=1)')
@@ -341,7 +290,6 @@ saveas(trendFig,'Trends')
 EFig = figure('Name','Energetics','WindowState', 'maximized');
 
 KE = 0.5.*mLoad.*real((smoothedVTO)).^2;
-%KE = 0.5.*mLoad.*real(smooth(vTOMat)).^2;
 PE = 0.5.*Fsprings.^2./k;
 Ed = smooth(PE-KE,3);
 
@@ -387,5 +335,3 @@ hold off
 saveas(EFig, 'Energetics')
 
 cd(old)
-
-%saveas(f, 'Linear Motor (90, 0.05, 0.1, false), Spring(k=1000,a=220,F0=40), latch(m=1,R=0.1), friction(-0.75,1), load(m=1)')

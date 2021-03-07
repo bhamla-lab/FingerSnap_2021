@@ -275,7 +275,7 @@ xlabel('$\mu$','FontSize', fSize)
 
 
 
-smoothedVTO = [real(smooth(vTOMat(1:maxVidx),5)); real(smooth(vTOMat((maxVidx+1):end),7))];
+smoothedVTO = [real(smooth(vTOMat(1:maxVidx),1)); real(smooth(vTOMat((maxVidx+1):end),1))];
 
 subplot(2,2,[2, 4])
 plot(mu_ss,smoothedVTO,'k-','LineWidth',2)
@@ -305,7 +305,7 @@ hold off
 
 subplot(2,1,2)
 dPE = gradient(PE,mu_ss);
-dEd = [smooth(gradient(Ed(1:maxVidx),mu_ss(1:maxVidx)),3); smooth(gradient(Ed((maxVidx+1):end),mu_ss((maxVidx+1):end)),9)];
+dEd = [smooth(gradient(Ed(1:maxVidx),mu_ss(1:maxVidx)),1); smooth(gradient(Ed((maxVidx+1):end),mu_ss((maxVidx+1):end)),1)];
 hold on
 plot(mu_ss,dPE,'r-','LineWidth',2)
 xlim([0, max(mu_ss)])

@@ -1,0 +1,67 @@
+clear
+%close all
+%%
+%The purpose of this case is to explore the effects of friction on a
+%circular latch being loaded by the phenomenological model of force
+%loading.
+
+%Latch Parameters
+R = 0.1;
+
+%Load Parameters
+k = 1000;
+    %Spring constant
+mLoad = 1;
+    %Mass of the load
+    
+muRatio = 1;
+    %Ratio of static to dynamic friction
+    
+%Misc Parameters
+
+startTheta0 = 0;
+startV = 0;
+    %Describes initial position and velocity of latch 
+    %If latch is moving at a constant velocity, then second value (initial velocity) has to be equal to latch
+    %velocity
+    
+mLatch = 1;
+    %latch mass in kg
+unlatchMotor = {'linear_motor' [100,0.05,0.1] false};
+%unlatchMotor = {'linear_motor' [90,2000,20] false};
+    %If constant force, unlatchMotor = 'constant_force F' where F is force acting on Latch in Newtons
+    
+    %If constant velocity, unlatchMotor = 'constant_velocity v' where v is velocity of Latch in m/s
+
+fricformInfo = [0, 1];
+
+alpha = 250;
+F0 = 40;
+
+loading = 'phenomenological';
+mu_s = [linspace(0,1,10)];
+overShoot = 10;
+    %Describes percentage of time to overshoot take off time by.
+       
+loadStr.k = k;
+loadStr.loading = loading;
+loadStr.loadingInfo = {alpha, F0};
+loadStr.loadMaxF = 100;
+loadStr.m = mLoad;
+
+startStr.startTheta = startTheta0;
+startStr.startVx = 0;
+
+fricStr.form = fricformInfo;
+fricStr.mus = mu_s;
+fricStr.mu_rat = muRatio; 
+    
+latchStr.R = R;
+latchStr.motor = unlatchMotor;
+latchStr.m = mLatch;
+
+detailsStr.overShoot = overShoot;
+detailsStr.backVec = [2,3,4];
+%[13, 26, 53, 56, 60, 67]
+
+[kineticsa] = fricVar(startStr,loadStr,fricStr,latchStr,detailsStr);

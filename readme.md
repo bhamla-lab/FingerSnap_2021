@@ -40,6 +40,6 @@ This branch contains the data files created during experiments designed to measu
 ```
 Each file contains the force measured by a load cell (See SI Figure 2) at every point in time. Additional details on the experiment performed can be found in the Materials and Methods section of the main manuscript. 
 
-#Finger snap LaMSA Model
+## Finger snap LaMSA Model
 
 Here you can find the components of the compressible, friction-based LaMSA model we developed to reflect and capture the trends observed experimentally. Additional details on the development of this model can be found in the Results and Discussion section of the main manuscript. This model includes two example files and eleven files which make up the overall model. Additional information on these files and the workings of the model can be found in the readme.md file within this branch. 
